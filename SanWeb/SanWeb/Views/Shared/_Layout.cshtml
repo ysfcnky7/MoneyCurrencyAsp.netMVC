@@ -1,0 +1,77 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>San</title>
+    <link rel="icon" href="~/Content/images/logo3.jpg" />
+    <link href="~/Content/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/Content/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="~/Content/vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
+    <link href="~/Content/css/gridcss.css" rel="stylesheet" />
+    <link href="~/Content/css/sb-admin.css" rel="stylesheet">
+    <link href="~/Content/css/DENEME_1_LOADER.css" rel="stylesheet" />
+    <script src="~/Content/js/DENEME_1_LOADER.js"></script>
+    @*<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>*@
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+</head>
+<body class="fixed-nav sticky-footer bg-dark" id="page-top">
+    <!-- Navigation-->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
+        <a href='@Url.Action("Index", "Home")'>
+            <img src='@Url.Content("~/Content/images/logo3.jpg")' />
+        </a>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
+                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
+                    <a class="nav-link" href="@Url.Action("Index","Home")">
+                        <i class="fa fa-fw fa-dashboard"></i>
+                        <span class="nav-link-text">Anasayfa</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+        <div class="content-wrapper">
+         @*Sayfanın içerik yayını burada RenderBody ile sağlanıyor*@
+        <div class="container-fluid">
+            @RenderBody()
+        </div>
+        <!-- /.container-fluid-->
+        <!-- /.content-wrapper-->
+        <footer class="sticky-footer">
+            <div class="container">
+                <div class="text-center">
+                    <small>Copyright © Yusuf Çankaya 2017</small>
+                </div>
+            </div>
+        </footer>
+        <!-- Scroll to Top Button-->
+        <a class="scroll-to-top rounded" href="#page-top">
+            <i class="fa fa-angle-up"></i>
+        </a>
+        </div>
+        <script src="~/Content/vendor/jquery/jquery.min.js"></script>
+        <script src="~/Content/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <!-- Core plugin JavaScript-->
+        <script src="~/Content/vendor/jquery-easing/jquery.easing.min.js"></script>
+        <!-- Page level plugin JavaScript-->
+        @*Toast Mesaj Update den sonra kullanım için*@ 
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/1.3.1/css/toastr.css" />
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/toastr.js/1.3.1/js/toastr.js">
+        <script src="~/Content/vendor/chart.js/Chart.min.js"></script>
+        <script src="~/Content/vendor/datatables/jquery.dataTables.js"></script>
+        <script src="~/Content/vendor/datatables/dataTables.bootstrap4.js"></script>
+        <!-- Custom scripts for all pages-->
+        <script src="~/Content/js/sb-admin.min.js"></script>
+        <!-- Custom scripts for this page-->
+        <script src="~/Content/js/gridtable.js"></script>
+        <script src="~/Content/js/sb-admin-datatables.min.js"></script>
+        <script src="~/Content/js/sb-admin-charts.min.js"></script>
+    </div>
+</body>
+</html>

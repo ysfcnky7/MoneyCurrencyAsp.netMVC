@@ -1,0 +1,150 @@
+﻿@model IEnumerable<SanWeb.Models.MoneyCurrency>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@*Filtre İçin Stayle*@
+<style>
+    .filterable {
+        margin-top: 15px;
+    }
+
+        .filterable .panel-heading .pull-right {
+            margin-top: -20px;
+        }
+
+        .filterable .filters input[disabled] {
+            background-color: transparent;
+            border: none;
+            cursor: auto;
+            box-shadow: none;
+            padding: 0;
+            height: auto;
+        }
+
+            .filterable .filters input[disabled]::-webkit-input-placeholder {
+                color: #333;
+            }
+
+            .filterable .filters input[disabled]::-moz-placeholder {
+                color: #333;
+            }
+
+            .filterable .filters input[disabled]:-ms-input-placeholder {
+                color: #333;
+            }
+</style>
+@*Kurlar İçin Tablo*@
+<div class="container">
+    <div class="row">
+        <div class="panel panel-primary filterable">
+            <div class="panel-heading">
+                <h4 class="panel-title">TCMB MERKEZ BANKASI KUR BİLGİLERİ</h4>
+                <div class="pull-right">
+                    <button class="btn btn-default btn-xs btn-filter"><span class="btn btn-outline-primary waves-effect">Filter</span></button>
+                </div>
+            </div>
+            <table class="table">
+                <thead>
+                    <tr class="filters">
+                        <th><input style="width: 60px" type="text" class="form-control" placeholder="#" disabled></th>
+                        <th><input style="width: 190px" type="text" class="form-control" placeholder="Ad" disabled></th>
+                        <th><input style="width: 80px" type="text" class="form-control" placeholder="Sembol" disabled></th>
+                        <th><input style="width: 120px" type="text" class="form-control" placeholder="Alış" disabled></th>
+                        <th><input style="width: 120px" type="text" class="form-control" placeholder="Satış" disabled></th>
+                        <th><input style="width: 120px" type="text" class="form-control" placeholder="Efektif Alış" disabled></th>
+                        <th><input style="width: 120px" type="text" class="form-control" placeholder="Efektif Satış" disabled></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{int i = 0;}
+                    @foreach (var item in Model)
+                    {
+                        i++;
+                        <tr>
+                            <th><input style="width: 60px" type="text" id="" class="form-control" value="@i" disabled></th>
+                            <th><input style="width: 190px" type="text" id="idName_@item.Id" class="form-control" value="@item.Name" disabled></th>
+                            <th><input style="width: 80px" type="text" id="idCode_@item.Id" class="form-control" value="@item.Code" disabled></th>
+                            <th><input style="width: 120px" type="text" id="idBuying_@item.Id" class="form-control" value="@item.Exchange_Buying"></th>
+                            <th><input style="width: 120px" type="text" id="idSelling_@item.Id" class="form-control" value="@item.Exchange_Selling"></th>
+                            <th><input style="width: 120px" type="text" id="idReception_@item.Id" class="form-control" value="@item.Effective_Reception"></th>
+                            <th><input style="width: 120px" type="text" id="idSales_@item.Id" class="form-control" value="@item.Effective_Sales"></th>
+                            <th><button id="btnSubmit" onclick="update(@item.Id)" class="btn btn-info btn-rounded" value="">Güncelle</button></th>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+@*Loading Divi*@
+<div class="spinner" style="display:none">
+    <div class="center-div">
+        <div class="inner-div">
+            <div class="loader">
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    @*Sayfa Yenileme 10 saniye de bir sayfayı yenileyecek*@
+    setTimeout(function () {
+        alert("Sayfa yenilendi");
+        window.location.reload(1);
+    }, 30000);
+
+    @*İnput boxlar için değer kontrolü trim ve invalid değerler için*@
+    function CheckRequiredFields() {
+        var isValid = true;
+        $('.required').each(function () {
+            if ($.trim($(this).val()) == '') {
+                isValid = false;
+                $(this).addClass('red_border');
+            }
+            else {
+                $(this).removeClass('red_border');
+            }
+        });
+        return isValid;
+    }
+
+    @*JS İLE POST İŞLEMİ*@
+    function update(itemID) {
+        var idName = $("#idName_" + itemID).val();
+        var idCode = $("#idCode_" + itemID).val();
+        var idBuying = $("#idBuying_" + itemID).val();
+        var idSelling = $("#idSelling_" + itemID).val();
+        var idReception = $("#idReception_" + itemID).val();
+        var idSales = $("#idSales_" + itemID).val();
+
+        $('.spinner').css('display', 'block');
+
+            if (CheckRequiredFields()) {
+                $.ajax({
+                    url: '@Url.Action("SaveAndUpdateCurrency", "Home")',
+                    type: 'POST',
+                    data: JSON.stringify({ "itemID": itemID, "idName": idName, "idCode": idCode, "idBuying": idBuying, "idSelling": idSelling, "idReception": idReception, "idSales": idSales }),
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+                    success: function (result) {
+                        if (result.Status == "True") {
+                            toastr.success(result.Message);
+                            display();
+                        }
+                        else {
+                            toastr.success(result.Message);
+                   //         display();
+                        }
+                        setTimeout(function () {
+                            $('.spinner').css('display', 'none');
+                        }, 300);
+                    },
+                    error: function () {
+                        alert('Bir Hata Oluştu !')
+                    },
+                });
+            }
+    }
+</script>

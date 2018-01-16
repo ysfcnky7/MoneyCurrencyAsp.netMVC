@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="SANModelStoreContainer" CdmEntityContainer="SANEntities">
+    <EntitySetMapping Name="MoneyCurrencies">
+      <EntityTypeMapping TypeName="SANModel.MoneyCurrency">
+        <MappingFragment StoreEntitySet="MoneyCurrencies">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Code" ColumnName="Code" />
+          <ScalarProperty Name="Exchange_Buying" ColumnName="Exchange_Buying" />
+          <ScalarProperty Name="Exchange_Selling" ColumnName="Exchange_Selling" />
+          <ScalarProperty Name="Effective_Reception" ColumnName="Effective_Reception" />
+          <ScalarProperty Name="Effective_Sales" ColumnName="Effective_Sales" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
